@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Laporan Belajar - {{ profile.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Impor library Chart.js dari CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <audio id="menu-music" src="{{ url_for('static', filename='sounds/menu_music.wav') }}" loop></audio>
+
+    <div class="dashboard-container">
+        <h1>Laporan Belajar untuk <span class="profile-name">{{ profile.name }}</span></h1>
+
+        <div class="report-grid">
+            <div class="report-summary">
+                <h2><img src="{{ url_for('static', filename='images/crystal.png') }}" class="icon-small" alt="Kristal"> Ringkasan Kristal</h2>
+                {% if scores %}
+                    <ul>
+                    {% for score_entry in scores %}
+                        <li>
+                            <strong>Topik {{ score_entry.topic|capitalize }}:</strong> 
+                            <span class="score-value">{{ score_entry.score }}</span> Kristal
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>{{ profile.name }} belum memulai permainan apapun.</p>
+                {% endif %}
+            </div>
+
+            <div class="chart-container">
+                <h2><img src="{{ url_for('static', filename='images/chart.png') }}" class="icon-small" alt="Grafik"> Grafik Kemampuan</h2>
+                <!-- Canvas adalah tempat grafik akan digambar oleh JavaScript -->
+                <canvas id="progressChart"></canvas>
+            </div>
+        </div>
+
+        <div class="ai-summary-container">
+            <h2><img src="{{ url_for('static', filename='images/owl.png') }}" class="icon-small" alt="Oli"> Ringkasan dari Oli si Bijak</h2>
+            <!-- Placeholder ini akan diisi oleh JavaScript setelah halaman dimuat -->
+            <p id="ai-summary-text" class="ai-text">
+                <em>Oli sedang berpikir untuk membuat ringkasan...</em>
+            </p>
+        </div>
+
+        <a href="{{ url_for('parent_dashboard') }}" class="btn-primary" style="margin-top: 30px;">Kembali ke Dashboard</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- BAGIAN UNTUK MEMBUAT GRAFIK ---
+            // Mengambil data skor yang sudah bersih dari backend
+            const scoresData = {{ scores_for_chart|tojson|safe }};
+
+            if (scoresData && scoresData.length > 0) {
+                const ctx = document.getElementById('progressChart').getContext('2d');
+
+                const labels = scoresData.map(item => item.topic.charAt(0).toUpperCase() + item.topic.slice(1));
+                const dataPoints = scoresData.map(item => item.score);
+
+                new Chart(ctx, {
+                    type: 'bar', 
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Total Kristal',
+                            data: dataPoints,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.5)',
+                                'rgba(54, 162, 235, 0.5)',
+                                'rgba(255, 206, 86, 0.5)',
+                                'rgba(75, 192, 192, 0.5)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: { y: { beginAtZero: true } },
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+            } else {
+                // Jika tidak ada data, tampilkan pesan di area grafik
+                const chartContainer = document.querySelector('.chart-container');
+                chartContainer.innerHTML = '<h2><img src="{{ url_for('static', filename='images/chart.png') }}" class="icon-small" alt="Grafik"> Grafik Kemampuan</h2><p>Data belum cukup untuk membuat grafik.</p>';
+            }
+
+            // --- BAGIAN UNTUK MEMUAT RINGKASAN AI SECARA ASINKRON ---
+            const summaryElement = document.getElementById('ai-summary-text');
+            const profileId = {{ profile.id }};
+
+            fetch(`/get-ai-summary/${profileId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    summaryElement.textContent = data.summary;
+                })
+                .catch(error => {
+                    console.error('Error fetching AI summary:', error);
+                    summaryElement.textContent = 'Gagal memuat ringkasan. Silakan coba refresh halaman nanti.';
+                });
+        });
+    </script>
+
+    <script src="{{ url_for('static', filename='js/music_manager.js') }}"></script>
+</body>
+</html>

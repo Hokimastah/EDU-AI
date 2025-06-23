@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Akun Baru</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <audio id="menu-music" src="{{ url_for('static', filename='sounds/menu_music.wav') }}" loop></audio>
+
+    <div class="dashboard-container">
+        <!-- KODE UNTUK MENAMPILKAN PESAN FLASH DITAMBAHKAN DI SINI -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flashes">
+            {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <h1>Buat Akun Orang Tua</h1>
+        <p>Daftar untuk mulai memantau progres belajar anak Anda.</p>
+
+        <form method="POST" action="{{ url_for('register') }}" class="profile-form">
+            <div class="form-group">
+                <label for="email">Alamat Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required minlength="6">
+            </div>
+            <button type="submit" class="btn-primary">Daftar Sekarang</button>
+        </form>
+        <p style="margin-top: 20px;">
+            Sudah punya akun? <a href="{{ url_for('login') }}">Masuk di sini</a>
+        </p>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/music_manager.js') }}"></script>
+</body>
+</html>

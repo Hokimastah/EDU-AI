@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profil - {{ profile.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <audio id="menu-music" src="{{ url_for('static', filename='sounds/menu_music.wav') }}" loop></audio>
+
+    <div class="dashboard-container">
+        <!-- Menampilkan pesan error/sukses jika ada -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flashes">
+            {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <h1>Edit Profil Petualang Cilik</h1>
+        <p>Ubah data untuk profil <strong>{{ profile.name }}</strong>.</p>
+        
+        <!-- Formulir ini mengirim data ke route /edit-profil/<id> di app.py -->
+        <!-- PENTING: enctype ditambahkan untuk mengizinkan unggah file -->
+        <form method="POST" action="{{ url_for('edit_profile', profile_id=profile.id) }}" class="profile-form" enctype="multipart/form-data">
+            
+            <div class="form-group">
+                <label for="name">Nama Panggilan Anak:</label>
+                <!-- Mengisi input dengan data yang sudah ada -->
+                <input type="text" id="name" name="name" required value="{{ profile.name }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="username">Username Anak (unik):</label>
+                <!-- Mengisi input dengan data yang sudah ada -->
+                <input type="text" id="username" name="username" required value="{{ profile.username }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="pin">Buat PIN Rahasia Baru (4 Angka):</label>
+                <input type="password" id="pin" name="pin" pattern="\d{4}" title="PIN harus terdiri dari 4 angka." maxlength="4" inputmode="numeric" placeholder="Kosongkan jika tidak ingin ganti PIN">
+                <small>Isi kolom ini hanya jika Anda ingin mengubah PIN.</small>
+            </div>
+            
+            <!-- FORM-GROUP BARU UNTUK UNGGAH AVATAR -->
+            <div class="form-group">
+                <label for="avatar">Ganti Avatar</label>
+                <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg, image/gif">
+                <small>Pilih gambar baru untuk dijadikan foto profil.</small>
+            </div>
+            
+            <button type="submit" class="btn-primary">Simpan Perubahan</button>
+        </form>
+        
+        <a href="{{ url_for('parent_dashboard') }}" style="margin-top: 20px; display: inline-block;">Kembali ke Dashboard</a>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/music_manager.js') }}"></script>
+</body>
+</html>

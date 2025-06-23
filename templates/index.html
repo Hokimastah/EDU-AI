@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Edukasi Adaptif</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<!-- Menambahkan data-profile-id -->
+<body data-topic="{{ game_topic }}" data-profile-id="{{ profile_id }}">
+    
+    <audio id="game-music" src="{{ url_for('static', filename='sounds/game_music.mp3') }}" loop></audio>
+    <audio id="click-sound" src="{{ url_for('static', filename='sounds/click_sound.wav') }}"></audio>
+
+    <div class="game-container">
+        <header class="game-header">
+            <!-- Di route 'game_page' pada app.py, nama profil bisa ditambahkan ke session dan dikirim ke sini -->
+            <h1>Petualangan {{ session.get('current_profile_name', 'Anak Cerdas') }}</h1>
+            <div id="score-container" class="score-box">
+                <img src="{{ url_for('static', filename='images/crystal.png') }}" alt="Kristal">
+                <span id="score-value">0</span>
+            </div>
+        </header>
+        
+        <div class="game-board">
+            <div class="mascot-container">
+                <img id="mascot-oli" src="{{ url_for('static', filename='images/owl.png') }}" alt="Oli si Burung Hantu">
+            </div>
+            <div class="interaction-container">
+                <div id="question-container" class="question-box">
+                    <p>Oli sedang menyiapkan soal...</p>
+                </div>
+                <div id="options-container" class="options-grid">
+                    <!-- Pilihan jawaban akan dimuat di sini oleh JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div id="feedback-container" class="feedback-box">
+            <!-- Umpan balik (benar/salah) akan muncul di sini -->
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/music_manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

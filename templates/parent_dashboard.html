@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Orang Tua</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <audio id="menu-music" src="{{ url_for('static', filename='sounds/menu_music.wav') }}" loop></audio>
+
+    <div class="dashboard-container">
+        <!-- Tombol Logout di pojok kanan atas -->
+        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        
+        <h1>Dashboard Anda</h1>
+        <p>Pilih profil anak untuk memulai permainan atau kelola profil.</p>
+
+        <!-- Menampilkan pesan jika ada (misal: "Profil berhasil dihapus") -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <div class="profiles-grid">
+            {% for profile in profiles %}
+            <div class="profile-card">
+                <!-- Menampilkan avatar kustom atau placeholder -->
+                {% if profile.avatar and profile.avatar != 'default.png' %}
+                    <img src="{{ url_for('static', filename='avatars/' + profile.avatar) }}" alt="Avatar untuk {{ profile.name }}">
+                {% else %}
+                    <img src="{{ url_for('static', filename='images/avatar_placeholder.png') }}" alt="Avatar default">
+                {% endif %}
+
+                <h2>{{ profile.name }}</h2>
+                <div class="profile-actions">
+                    <a href="{{ url_for('select_profile', profile_id=profile.id) }}" class="btn-primary">Pilih & Mainkan</a>
+                    <a href="{{ url_for('report_page', profile_id=profile.id) }}" class="btn-secondary">Lihat Laporan</a>
+                    <!-- Tombol Edit & Hapus -->
+                    <div class="management-actions">
+                        <a href="{{ url_for('edit_profile', profile_id=profile.id) }}" class="btn-edit">Edit</a>
+                        <!-- Tombol Hapus memicu konfirmasi JavaScript -->
+                        <form method="POST" action="{{ url_for('delete_profile', profile_id=profile.id) }}" onsubmit="return confirm('Apakah Anda yakin ingin menghapus profil {{ profile.name }}? Aksi ini tidak bisa dibatalkan.');">
+                            <button type="submit" class="btn-delete">Hapus</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <!-- Kartu untuk menambah profil baru -->
+            <a href="{{ url_for('add_profile') }}" class="profile-card add-new">
+                <div class="plus-icon">+</div>
+                <h2>Tambah Profil</h2>
+            </a>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/music_manager.js') }}"></script>
+</body>
+</html>
+
+<!-- KODE CSS YANG DIKEMBALIKAN -->
+<style>
+    .management-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+    }
+    .management-actions .btn-edit, .management-actions .btn-delete {
+        padding: 5px 10px;
+        border-radius: 8px;
+        font-size: 0.9em;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+    }
+    .btn-edit {
+        background-color: #ffc107;
+        color: #212529;
+    }
+    .btn-delete {
+        background-color: #dc3545;
+        color: white;
+        /* Anda bisa sesuaikan font ini jika perlu agar cocok dengan font utama di style.css */
+        font-family: 'Nunito', sans-serif; 
+    }
+</style>

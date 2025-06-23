@@ -1,0 +1,458 @@
+/* static/css/style.css */
+
+/* --- FONT BARU & BODY DASAR --- */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&display=swap');
+
+body {
+    font-family: 'Baloo 2', cursive;
+    background-color: #fdf6e3; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* --- CONTAINER UTAMA --- */
+.dashboard-container, .game-container {
+    background-color: #fffaf0; 
+    padding: 30px 40px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    max-width: 800px;
+    text-align: center;
+    border: 1px solid #eaddc7;
+    position: relative;
+}
+
+h1 {
+    color: #e67e22;
+    text-shadow: none;
+    margin-bottom: 15px;
+    font-size: 2.5em;
+    font-weight: 800;
+}
+
+p {
+    font-size: 1.2em;
+    color: #6c584c;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+a {
+    color: #d35400;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* --- TOMBOL-TOMBOL --- */
+.btn-primary, .btn-secondary, .logout-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1em;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary {
+    background-color: #e67e22;
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #d35400;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(230, 126, 34, 0.4);
+    text-decoration: none;
+}
+
+.btn-secondary {
+    background-color: #a0522d;
+    color: white;
+}
+.btn-secondary:hover {
+    background-color: #8b4513;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(160, 82, 45, 0.4);
+    text-decoration: none;
+}
+
+.btn-large {
+    padding: 15px 35px;
+    font-size: 1.2em;
+}
+
+.logout-btn {
+    background-color: #c0392b;
+    color: white;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    padding: 8px 15px;
+    font-size: 0.9em;
+}
+
+/* --- HALAMAN SPLASH --- */
+.splash-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+    align-items: center;
+}
+
+/* --- FORMULIR (LOGIN, REGISTER, TAMBAH PROFIL) --- */
+.profile-form {
+    max-width: 400px;
+    margin: 30px auto;
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: #8b5e34;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #eaddc7;
+    font-size: 1.1em;
+    font-family: 'Baloo 2', cursive;
+    box-sizing: border-box; 
+}
+.form-group input:focus {
+    outline: none;
+    border-color: #e67e22;
+    box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.2);
+}
+
+ul.flashes {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+ul.flashes li {
+    padding: 15px;
+    border-radius: 8px;
+}
+ul.flashes li.danger { background-color: #ffcdd2; color: #c62828; border: 1px solid #c62828; }
+ul.flashes li.warning { background-color: #fff9c4; color: #f57f17; border: 1px solid #f57f17; }
+ul.flashes li.success { background-color: #c8e6c9; color: #2e7d32; border: 1px solid #2e7d32; }
+ul.flashes li.info { background-color: #b3e5fc; color: #01579b; border: 1px solid #01579b;}
+
+
+/* --- DASHBOARD ORANG TUA --- */
+.profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.profile-card {
+    background: #fdf6e3; 
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid #f5eadd;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    color: #6c584c;
+}
+.profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.profile-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 4px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.profile-card h2 {
+    color: #a0522d;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-card.add-new {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #fffaf0;
+    border: 2px dashed #eaddc7;
+}
+.plus-icon {
+    font-size: 4em;
+    color: #e67e22;
+    line-height: 1;
+    font-weight: 400;
+}
+
+/* --- DASHBOARD ANAK (PETA PETUALANGAN) --- */
+.map-container {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 30px;
+    justify-items: center;
+}
+
+.map-location {
+    text-decoration: none;
+    color: #6c584c;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s ease-in-out;
+}
+.map-location:hover {
+    transform: scale(1.1);
+}
+.map-location .icon-bg {
+    background-color: #ffebcd; 
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 5px solid white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.map-location img {
+    width: 60px;
+    height: 60px;
+}
+.map-location span {
+    font-size: 1.1em;
+}
+.map-location.locked {
+    filter: grayscale(100%);
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+.map-location.locked .icon-bg {
+    background-color: #e0e0e0;
+    border-color: #bdbdbd;
+}
+
+/* --- HALAMAN PERMAINAN (GAME) --- */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.score-box {
+    display: flex;
+    align-items: center;
+    background-color: #ffebcd;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #8b5e34;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.score-box img {
+    width: 40px;
+    margin-right: 10px;
+}
+.game-board {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 20px;
+    background-color: #fdf6e3;
+    border-radius: 10px;
+    border: 1px solid #f5eadd;
+}
+.mascot-container {
+    flex-shrink: 0;
+}
+
+#mascot-oli {
+    width: 120px;
+    transition: transform 0.3s ease-in-out;
+}
+#mascot-oli.correct {
+    transform: scale(1.2) rotate(10deg);
+}
+#mascot-oli.incorrect {
+    transform: translateX(-10px) rotate(-5deg);
+}
+.interaction-container {
+    flex-grow: 1;
+}
+.question-box {
+    background-color: #fff;
+    border-left: 8px solid #a0522d;
+    padding: 25px;
+    margin-bottom: 25px;
+    font-size: 1.4em;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    color: #6c584c;
+}
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+.option-btn {
+    padding: 18px;
+    font-size: 1.1em;
+    border: 2px solid #eaddc7;
+    border-radius: 10px;
+    background-color: #fffaf0;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s, border-color 0.3s;
+    color: #6c584c;
+    font-family: 'Baloo 2', cursive;
+}
+.option-btn:hover:not(:disabled) {
+    background-color: #ffebcd;
+    border-color: #e67e22;
+}
+.option-btn:active:not(:disabled) {
+    transform: scale(0.98);
+}
+.option-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+.feedback-box {
+    min-height: 50px;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 20px;
+    transition: all 0.3s;
+}
+
+/* --- HALAMAN LAPORAN --- */
+.report-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+    text-align: left;
+    margin: 40px 0;
+}
+.report-summary ul {
+    list-style-type: none;
+    padding: 0;
+}
+.report-summary li {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    background: #fdf6e3;
+    padding: 12px 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+.icon-small {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.chart-container {
+    position: relative;
+    height: 350px;
+}
+.ai-summary-container {
+    background-color: #fef4e7;
+    border-left: 5px solid #e67e22;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
+    margin-top: 20px;
+}
+.ai-summary-container .ai-text {
+    font-size: 1.1em;
+    color: #8b5e34;
+    margin: 0;
+    line-height: 1.7;
+}
+
+/* --- DASHBOARD ORANG TUA (TOMBOL EDIT/HAPUS) --- */
+.management-actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+    border-top: 1px solid #eaddc7;
+    padding-top: 15px;
+}
+.management-actions .btn-edit, .management-actions .btn-delete {
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    flex-grow: 1;
+    margin: 0 5px;
+    text-transform: none;
+    letter-spacing: 0;
+}
+.btn-edit {
+    background-color: #f1c40f;
+    color: #333;
+}
+.btn-delete {
+    background-color: #c0392b;
+    color: white;
+    font-family: 'Baloo 2', cursive;
+}
+
+/* Responsiveness for smaller screens */
+@media (max-width: 768px) {
+    .report-grid {
+        grid-template-columns: 1fr;
+    }
+    .logout-btn {
+        position: static;
+        display: block;
+        margin: -10px auto 20px auto;
+        width: fit-content;
+    }
+}

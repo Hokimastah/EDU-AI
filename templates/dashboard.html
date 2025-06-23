@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta Petualangan - Hutan Ajaib</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <audio id="menu-music" src="{{ url_for('static', filename='sounds/menu_music.wav') }}" loop></audio>
+
+    <div class="dashboard-container">
+        <h1>Pilih Petualanganmu!</h1>
+        <p>Klik sebuah lokasi di peta untuk memulai.</p>
+        <div class="map-container">
+            <a href="/game?topic=penjumlahan" class="map-location" id="penjumlahan">
+                <div class="icon-bg">
+                    <img src="{{ url_for('static', filename='images/plus.png') }}" alt="Icon Penjumlahan">
+                </div>
+                <span>Bukit Penjumlahan</span>
+            </a>
+
+            <a href="/game?topic=pengurangan" class="map-location" id="pengurangan">
+                <div class="icon-bg">
+                    <img src="{{ url_for('static', filename='images/minus.png') }}" alt="Icon Pengurangan">
+                </div>
+                <span>Lembah Pengurangan</span>
+            </a>
+
+            <a href="/game?topic=perkalian" class="map-location" id="perkalian">
+                <div class="icon-bg">
+                    <img src="{{ url_for('static', filename='images/multiply.png') }}" alt="Icon Perkalian">
+                </div>
+                <span>Sungai Perkalian</span>
+            </a>
+
+            <a href="/game?topic=pembagian" 
+            class="map-location {% if 'pembagian' not in unlocked_topics %}locked{% endif %}" 
+            id="pembagian">
+                
+                <div class="icon-bg">
+                    <img src="{{ url_for('static', filename='images/divide.png') }}" alt="Icon Pembagian">
+                </div>
+                <span>
+                    Gua Pembagian 
+                    {% if 'pembagian' not in unlocked_topics %}(Terkunci){% endif %}
+                </span>
+            </a>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/music_manager.js') }}"></script>
+</body>
+</html>

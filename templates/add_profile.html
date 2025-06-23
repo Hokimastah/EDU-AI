@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Tambah Profil Anak</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <audio id="menu-music" src="{{ url_for('static', filename='sounds/menu_music.wav') }}" loop></audio>
+
+    <div class="dashboard-container">
+        <h1>Buat Profil Petualang Cilik</h1>
+        <p>Isi data di bawah ini agar anak Anda bisa login sendiri.</p>
+        
+        <!-- Formulir ini mengirim data ke route /tambah-profil di app.py -->
+        <form method="POST" action="{{ url_for('add_profile') }}" class="profile-form">
+            
+            <div class="form-group">
+                <label for="name">Nama Panggilan Anak:</label>
+                <input type="text" id="name" name="name" required placeholder="Contoh: Budi">
+            </div>
+            
+            <div class="form-group">
+                <label for="username">Buat Username Anak (unik):</label>
+                <input type="text" id="username" name="username" required placeholder="Contoh: budi_petualang">
+            </div>
+            
+            <div class="form-group">
+                <label for="pin">Buat PIN Rahasia (4 Angka):</label>
+                <!-- 
+                    type="password" menyembunyikan angka saat diketik.
+                    inputmode="numeric" dan pattern="\d{4}" membantu di perangkat mobile.
+                    maxlength="4" membatasi input hanya 4 digit.
+                -->
+                <input type="password" id="pin" name="pin" required pattern="\d{4}" title="PIN harus terdiri dari 4 angka." maxlength="4" inputmode="numeric">
+            </div>
+            
+            <button type="submit" class="btn-primary">Simpan Profil</button>
+        </form>
+        
+        <a href="{{ url_for('parent_dashboard') }}" style="margin-top: 20px; display: inline-block;">Kembali ke Dashboard</a>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/music_manager.js') }}"></script>
+</body>
+</html>

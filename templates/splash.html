@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Selamat Datang di Hutan Ajaib</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <audio id="menu-music" src="{{ url_for('static', filename='sounds/menu_music.wav') }}" loop></audio>
+
+    <div class="dashboard-container">
+        <img src="{{ url_for('static', filename='images/owl.png') }}" alt="Oli si Burung Hantu" style="width:150px; margin-bottom:20px;">
+        <h1>Selamat Datang di Hutan Ajaib!</h1>
+        <p>Siapakah kamu?</p>
+        <div class="splash-buttons">
+            <a href="{{ url_for('child_login') }}" class="btn-primary btn-large">Aku Si Petualang (Anak)</a>
+            <a href="{{ url_for('login') }}" class="btn-secondary btn-large">Aku Sang Penjaga (Orang Tua)</a>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/music_manager.js') }}"></script>
+</body>
+</html>

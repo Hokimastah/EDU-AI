@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Petualang Cilik</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <audio id="menu-music" src="{{ url_for('static', filename='sounds/menu_music.wav') }}" loop></audio>
+
+    <div class="dashboard-container">
+        <!-- KODE UNTUK MENAMPILKAN PESAN FLASH DITAMBAHKAN DI SINI -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flashes">
+            {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        
+        <h1>Masuk untuk Bermain!</h1>
+        <form method="POST" action="{{ url_for('child_login') }}" class="profile-form">
+            <div class="form-group">
+                <label for="username">Username Kamu:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="pin">PIN Rahasia (4 Angka):</label>
+                <input type="password" id="pin" name="pin" required maxlength="4" inputmode="numeric">
+            </div>
+            <button type="submit" class="btn-primary">Mulai Petualangan!</button>
+        </form>
+         <p style="margin-top: 20px;">
+            Bukan kamu? <a href="{{ url_for('login') }}">Login sebagai Orang Tua</a>
+        </p>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/music_manager.js') }}"></script>
+</body>
+</html>
